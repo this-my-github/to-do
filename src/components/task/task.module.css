@@ -1,0 +1,39 @@
+.task {
+	background-color: rgb(219, 219, 219);
+}
+
+.task * {
+	display: inline-block;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 18px;
+}
+
+.checkbox {
+	text-align: left;
+	width: 9%;
+	transform: scale(2);
+	cursor: pointer;
+	accent-color: #646464;
+}
+
+.description {
+	text-align: left;
+	width: 80%;
+	border-bottom: 1px solid black;
+}
+
+.descriptionCompletedTask {
+	text-align: left;
+	width: 80%;
+	text-decoration: line-through;
+	border-bottom: 1px solid black;
+}
+
+.deleteBtn {
+	width: 10%;
+	text-align: center;
+	font-size: 12.5px;
+	border: 0;
+	background-color: inherit;
+}
