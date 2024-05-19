@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 import { TODOS_URL } from '../constants';
 import { filterTodos } from '../utils';
 
-export const useRequestGetTodos = ({ refreshProducts, newTodo, isSorting }) => {
-	const [todos, setTodos] = useState([]);
+export const useRequestSortTodos = ({ refreshProducts, newTodo, isSorting }) => {
+	const [sortedTodos, setSortedTodos] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
 
 	useEffect(() => {
 		setIsError(false);
 		const Debounce = setTimeout(() => {
-			fetch(TODOS_URL)
+			fetch(`${TODOS_URL}?_sort=title`)
 				.then((response) => {
 					if (response.ok !== true) {
 						throw new Error('Error with get data');
@@ -19,7 +19,7 @@ export const useRequestGetTodos = ({ refreshProducts, newTodo, isSorting }) => {
 				})
 				.then((loadedDate) => {
 					const findedTodos = filterTodos(newTodo, loadedDate);
-					setTodos(findedTodos);
+					setSortedTodos(findedTodos);
 				})
 				.catch((err) => setIsError(err.message))
 				.finally(() => {
@@ -30,5 +30,5 @@ export const useRequestGetTodos = ({ refreshProducts, newTodo, isSorting }) => {
 		return () => clearTimeout(Debounce);
 	}, [refreshProducts, newTodo, isSorting]);
 
-	return { todos, setTodos, isLoading, isError };
+	return { sortedTodos, setSortedTodos, isLoading, isError };
 };

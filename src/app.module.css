@@ -1,15 +1,16 @@
 .app {
-	width: 80%;
-	margin-left: auto;
-	margin-right: auto;
+	align-items: center;
+	justify-content: center;
 	max-width: 900px;
+	margin: 0 auto;
+	padding: 20px;
+	font-family: 'Caveat', cursive;
 	background-color: rgb(219, 219, 219);
-	height: 735px;
 }
 
 h1 {
 	padding-top: 20px;
-	font-size: 40px;
+	font-size: 60px;
 	margin-top: 0;
 	text-align: center;
 }

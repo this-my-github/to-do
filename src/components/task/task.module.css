@@ -1,39 +1,54 @@
 .task {
+	margin: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+
 	background-color: rgb(219, 219, 219);
 }
 
-.task * {
-	display: inline-block;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	font-size: 18px;
+form {
+	display: flex;
+	flex: 1 auto;
 }
 
 .checkbox {
-	text-align: left;
-	width: 9%;
+	margin: 12px;
 	transform: scale(2);
+	opacity: 0.9;
 	cursor: pointer;
+	font-size: 5px;
+	line-height: 1.5;
 	accent-color: #646464;
 }
 
 .description {
-	text-align: left;
-	width: 80%;
-	border-bottom: 1px solid black;
+	border: none;
+	background-color: inherit;
+	border-bottom: 2px solid #646464;
+	flex: 1 auto;
+	font-size: 30px;
+	margin: 5px;
+	font-family: 'Caveat', cursive;
 }
 
 .descriptionCompletedTask {
-	text-align: left;
-	width: 80%;
+	border: none;
+	background-color: inherit;
+	border-bottom: 2px solid #646464;
 	text-decoration: line-through;
-	border-bottom: 1px solid black;
+	font-family: 'Caveat', cursive;
+	flex: 1 auto;
+	font-size: 30px;
+	margin: 5px;
 }
 
-.deleteBtn {
-	width: 10%;
-	text-align: center;
-	font-size: 12.5px;
-	border: 0;
-	background-color: inherit;
+.description:focus {
+	outline: none;
+	border-bottom: 2px solid #d12424;
+}
+
+.descriptionCompletedTask:focus {
+	outline: none;
+	border-bottom: 2px solid #d12424;
 }
