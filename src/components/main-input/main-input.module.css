@@ -31,3 +31,14 @@ form {
 	width: 27px;
 	height: 27px;
 }
+
+.addBtn {
+	margin: 5px;
+	font-size: 25px;
+	line-height: 1.5;
+	margin-left: 15px;
+	padding: 0 10px;
+	color: #666;
+	border: 0;
+	background-color: inherit;
+}

@@ -4,15 +4,7 @@ import { DeleteTodo } from '../buttons/delete-todo';
 import { UpdateTodo } from '../buttons/update-todo';
 import { useRequestUpdateTodos } from '../../hooks';
 
-export const Task = ({
-	id,
-	title,
-	completed,
-	refreshProducts,
-	setRefreshProducts,
-	setTodos,
-	setSortedTodos,
-}) => {
+export const Task = ({ id, title, completed, refreshProducts, setRefreshProducts }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [isCompleted, setIsCompleted] = useState(completed);
 	const [updatedTodo, setUpdatedTodo] = useState(title);
@@ -43,7 +35,6 @@ export const Task = ({
 					className={
 						isCompleted ? styles.descriptionCompletedTask : styles.description
 					}
-					key={id}
 					value={updatedTodo}
 					onChange={({ target }) => setUpdatedTodo(target.value)}
 					onBlur={() => {
@@ -53,7 +44,6 @@ export const Task = ({
 					disabled={!isEditing}
 				/>
 				<UpdateTodo
-					id={id}
 					isCompleted={isCompleted}
 					isUpdating={isUpdating}
 					isEditing={isEditing}
@@ -65,8 +55,6 @@ export const Task = ({
 				id={id}
 				refreshProducts={refreshProducts}
 				setRefreshProducts={setRefreshProducts}
-				setTodos={setTodos}
-				setSortedTodos={setSortedTodos}
 			/>
 		</div>
 	);

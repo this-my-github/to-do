@@ -41,25 +41,23 @@ export const App = () => {
 			) : isSorting ? (
 				sortedTodos.map(({ id, title, completed }) => (
 					<Task
+						key={id}
 						id={id}
 						title={title}
 						completed={completed}
 						refreshProducts={refreshProducts}
 						setRefreshProducts={setRefreshProducts}
-						setTodos={setTodos}
-						setSortedTodos={setSortedTodos}
 					/>
 				))
 			) : (
 				todos.map(({ id, title, completed }) => (
 					<Task
+						key={id}
 						id={id}
 						title={title}
 						completed={completed}
 						refreshProducts={refreshProducts}
 						setRefreshProducts={setRefreshProducts}
-						setTodos={setTodos}
-						setSortedTodos={setSortedTodos}
 					/>
 				))
 			)}

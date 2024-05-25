@@ -1,13 +1,7 @@
 import styles from './delete-todo.module.css';
 import { useRequestDeleteTodos } from '../../../hooks';
 
-export const DeleteTodo = ({
-	id,
-	refreshProducts,
-	setRefreshProducts,
-	setTodos,
-	setSortedTodos,
-}) => {
+export const DeleteTodo = ({ id, refreshProducts, setRefreshProducts }) => {
 	const { isDeleting, requestDeleteTodo } = useRequestDeleteTodos({
 		id,
 		refreshProducts,
@@ -17,11 +11,8 @@ export const DeleteTodo = ({
 	return (
 		<button
 			className={styles.deleteBtn}
-			id={id}
 			disabled={isDeleting}
 			onClick={() => {
-				setTodos([]);
-				setSortedTodos([]);
 				requestDeleteTodo();
 			}}
 		>

@@ -10,8 +10,6 @@ export const MainInput = ({
 	setRefreshProducts,
 	isSorting,
 	setIsSorting,
-	setTodos,
-	setSortedTodos,
 }) => {
 	return (
 		<div className={styles.seachContainer}>
@@ -22,27 +20,18 @@ export const MainInput = ({
 					placeholder="New todo"
 					value={newTodo}
 					onChange={({ target }) => {
-						setTodos([]);
-						setSortedTodos([]);
 						setNewTodo(target.value);
 					}}
 				/>
 				<AddTodo
 					newTodo={newTodo}
-					refreshProducts={refreshProducts}
 					setNewTodo={setNewTodo}
+					refreshProducts={refreshProducts}
 					setRefreshProducts={setRefreshProducts}
-					setTodos={setTodos}
-					setSortedTodos={setSortedTodos}
 				/>
 			</form>
 
-			<SortTodo
-				isSorting={isSorting}
-				setIsSorting={setIsSorting}
-				setTodos={setTodos}
-				setSortedTodos={setSortedTodos}
-			/>
+			<SortTodo isSorting={isSorting} setIsSorting={setIsSorting} />
 		</div>
 	);
 };
