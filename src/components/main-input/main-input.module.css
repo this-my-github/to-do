@@ -7,38 +7,17 @@
 form {
 	display: flex;
 	flex: 1 auto;
+	justify-content: center;
+	align-items: center;
 }
 
-.search {
-	flex: 1 auto;
-	font-size: 35px;
-	margin: 5px;
-
-	font-family: 'Caveat', cursive;
-
-	border: none;
-	border-bottom: 3px solid #646464;
-	background-color: inherit;
+.sortIcon {
+	width: 25px;
+	height: 25px;
+	filter: invert(0.4);
 }
 
-.search:focus {
-	outline: none;
-	border-bottom: 3px solid #d12424;
-}
-
-.searchIcon {
-	margin: 5px;
-	width: 27px;
-	height: 27px;
-}
-
-.addBtn {
-	margin: 5px;
-	font-size: 25px;
-	line-height: 1.5;
-	margin-left: 15px;
-	padding: 0 10px;
-	color: #666;
-	border: 0;
-	background-color: inherit;
+.sortIconActive {
+	width: 25px;
+	height: 25px;
 }

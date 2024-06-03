@@ -1,37 +1,36 @@
-import { AddTodo } from '../buttons/add-todo/add-todo';
+import { useState } from 'react';
+import { Search, Sorting } from './components';
+import { Button } from '../button/button';
 import styles from './main-input.module.css';
-import searchIcon from '../../assets/image/search.png';
-import { SortTodo } from '../buttons/sort-todo';
 
 export const MainInput = ({
 	newTodo,
 	setNewTodo,
-	refreshProducts,
-	setRefreshProducts,
 	isSorting,
 	setIsSorting,
+	onTodoAdd,
 }) => {
+	const [value, setValue] = useState('');
+
+	const onTodoAddOnForm = (event) => {
+		event.preventDefault();
+		if (newTodo) {
+			setNewTodo('');
+			setValue('');
+			onTodoAdd(newTodo);
+		}
+	};
+
 	return (
 		<div className={styles.seachContainer}>
-			<img src={searchIcon} alt="search" className={styles.searchIcon} />
 			<form>
-				<input
-					className={styles.search}
-					placeholder="New todo"
-					value={newTodo}
-					onChange={({ target }) => {
-						setNewTodo(target.value);
-					}}
-				/>
-				<AddTodo
-					newTodo={newTodo}
-					setNewTodo={setNewTodo}
-					refreshProducts={refreshProducts}
-					setRefreshProducts={setRefreshProducts}
-				/>
+				<Search value={value} setValue={setValue} setNewTodo={setNewTodo} />
+				<Button type="submit" onClick={onTodoAddOnForm}>
+					✓
+				</Button>
 			</form>
 
-			<SortTodo isSorting={isSorting} setIsSorting={setIsSorting} />
+			<Sorting isSorting={isSorting} setIsSorting={setIsSorting} />
 		</div>
 	);
 };

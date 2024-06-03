@@ -1,0 +1,21 @@
+.search {
+	flex: 1 auto;
+	font-size: 35px;
+	margin: 5px;
+
+	font-family: 'Caveat', cursive;
+
+	border: none;
+	border-bottom: 3px solid #646464;
+	background-color: inherit;
+}
+
+.search:focus {
+	outline: none;
+	border-bottom: 3px solid #d12424;
+}
+
+.searchIcon {
+	width: 27px;
+	height: 27px;
+}

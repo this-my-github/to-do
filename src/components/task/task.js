@@ -1,61 +1,49 @@
 import { useState } from 'react';
+import { Button } from '../button/button';
 import styles from './task.module.css';
-import { DeleteTodo } from '../buttons/delete-todo';
-import { UpdateTodo } from '../buttons/update-todo';
-import { useRequestUpdateTodos } from '../../hooks';
 
-export const Task = ({ id, title, completed, refreshProducts, setRefreshProducts }) => {
+export const Task = ({
+	title,
+	completed,
+	onRemove,
+	onTitleChange,
+	onCompletedChange,
+}) => {
 	const [isEditing, setIsEditing] = useState(false);
-	const [isCompleted, setIsCompleted] = useState(completed);
 	const [updatedTodo, setUpdatedTodo] = useState(title);
 
-	const { isUpdating, requestUpdateTodo } = useRequestUpdateTodos({
-		id,
-		updatedTodo,
-		isCompleted,
-		refreshProducts,
-		setRefreshProducts,
-	});
+	const onUpdate = (event) => {
+		event.preventDefault();
+		setIsEditing(!isEditing);
+		if (isEditing === true) {
+			onTitleChange(updatedTodo);
+		}
+	};
+
+	const isUpdateBtnActive = isEditing ? styles.updateBtnActive : styles.updateBtn;
 
 	return (
 		<div className={styles.task}>
 			<input
 				className={styles.checkbox}
-				checked={isCompleted}
-				onChange={() => {
-					setIsCompleted(!isCompleted);
-				}}
-				onBlur={() => {
-					requestUpdateTodo();
-				}}
 				type="checkbox"
+				checked={completed}
+				onChange={({ target }) => onCompletedChange(target.checked)}
 			/>
 			<form>
 				<input
 					className={
-						isCompleted ? styles.descriptionCompletedTask : styles.description
+						completed ? styles.descriptionCompletedTask : styles.description
 					}
 					value={updatedTodo}
 					onChange={({ target }) => setUpdatedTodo(target.value)}
-					onBlur={() => {
-						setIsEditing(false);
-						requestUpdateTodo();
-					}}
 					disabled={!isEditing}
 				/>
-				<UpdateTodo
-					isCompleted={isCompleted}
-					isUpdating={isUpdating}
-					isEditing={isEditing}
-					setIsEditing={setIsEditing}
-				/>
+				<Button style={isUpdateBtnActive} onClick={onUpdate} type="submit">
+					✎
+				</Button>
 			</form>
-
-			<DeleteTodo
-				id={id}
-				refreshProducts={refreshProducts}
-				setRefreshProducts={setRefreshProducts}
-			/>
+			<Button onClick={onRemove}>✕</Button>
 		</div>
 	);
 };

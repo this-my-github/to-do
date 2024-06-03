@@ -1,54 +1,67 @@
-import { useRequestGetTodos, useRequestSortTodos } from './hooks';
-import { MainInput } from './components/main-input';
-import { Task } from './components/task';
+import { useEffect, useState } from 'react';
+import { MainInput, Task } from './components';
+import { createTodo, deleteTodo, readTodos, updateTodo } from './api';
+import { setTodoInTodos } from './utils';
 import { HashLoader } from 'react-spinners';
 import styles from './app.module.css';
-import { useState } from 'react';
 
 export const App = () => {
-	const [refreshProducts, setRefreshProducts] = useState(false);
 	const [newTodo, setNewTodo] = useState('');
 	const [isSorting, setIsSorting] = useState(false);
+	const [todos, setTodos] = useState([]);
 
-	const { isLoading, todos, setTodos, isError } = useRequestGetTodos({
-		refreshProducts,
-		newTodo,
-		isSorting,
-	});
+	const [isLoading, setIsLoading] = useState(true);
+	const [isError, setIsError] = useState(false);
 
-	const { sortedTodos, setSortedTodos } = useRequestSortTodos({
-		refreshProducts,
-		newTodo,
-		isSorting,
-	});
+	const onTodoAdd = (title) => {
+		createTodo({ title, completed: false }).then((todo) =>
+			setTodos([todo, ...todos]),
+		);
+	};
+
+	const onTodoRemove = (id) => {
+		deleteTodo(id).then(() => setTodos(todos.filter((todo) => todo.id !== id)));
+	};
+
+	const onTodoTitleChange = (id, newTitle) => {
+		updateTodo({ id, title: newTitle }).then(() => {
+			setTodos(setTodoInTodos(todos, { id, title: newTitle }));
+		});
+	};
+
+	const onTodoCompletedChange = (id, newCompleted) => {
+		updateTodo({ id, completed: newCompleted }).then(() => {
+			setTodos(setTodoInTodos(todos, { id, completed: newCompleted }));
+		});
+	};
+
+	useEffect(() => {
+		setIsError(false);
+		readTodos(newTodo, isSorting)
+			.then((loadedTodos) => {
+				setTodos(loadedTodos);
+			})
+			.catch((err) => setIsError(err.message))
+			.finally(() => {
+				setIsLoading(false);
+			});
+	}, [newTodo, isSorting]);
+
 	return (
 		<div className={styles.app}>
 			<h1>To-do</h1>
 			<MainInput
-				refreshProducts={refreshProducts}
-				setRefreshProducts={setRefreshProducts}
 				newTodo={newTodo}
 				setNewTodo={setNewTodo}
 				isSorting={isSorting}
 				setIsSorting={setIsSorting}
 				setTodos={setTodos}
-				setSortedTodos={setSortedTodos}
+				onTodoAdd={onTodoAdd}
 			/>
 			{isLoading ? (
 				<HashLoader className={styles.loader} color="#646464" />
 			) : isError ? (
 				<h2 className={styles.error}>{isError}</h2>
-			) : isSorting ? (
-				sortedTodos.map(({ id, title, completed }) => (
-					<Task
-						key={id}
-						id={id}
-						title={title}
-						completed={completed}
-						refreshProducts={refreshProducts}
-						setRefreshProducts={setRefreshProducts}
-					/>
-				))
 			) : (
 				todos.map(({ id, title, completed }) => (
 					<Task
@@ -56,8 +69,11 @@ export const App = () => {
 						id={id}
 						title={title}
 						completed={completed}
-						refreshProducts={refreshProducts}
-						setRefreshProducts={setRefreshProducts}
+						onRemove={() => onTodoRemove(id)}
+						onTitleChange={(newTitle) => onTodoTitleChange(id, newTitle)}
+						onCompletedChange={(newCompleted) =>
+							onTodoCompletedChange(id, newCompleted)
+						}
 					/>
 				))
 			)}
