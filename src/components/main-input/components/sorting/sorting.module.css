@@ -1,0 +1,21 @@
+.sortBtn {
+	margin: 5px;
+	font-size: 25px;
+	line-height: 1.5;
+	align-items: center;
+	justify-content: center;
+	padding-top: 7px;
+	border: 0;
+	background-color: inherit;
+}
+
+.sortIcon {
+	width: 25px;
+	height: 25px;
+	filter: invert(0.4);
+}
+
+.sortIconActive {
+	width: 25px;
+	height: 25px;
+}

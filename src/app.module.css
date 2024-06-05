@@ -1,0 +1,9 @@
+.app {
+	align-items: center;
+	justify-content: center;
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 20px;
+	font-family: 'Caveat', cursive;
+	background-color: rgb(219, 219, 219);
+}
