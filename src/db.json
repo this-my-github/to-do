@@ -1,0 +1,29 @@
+{
+  "todos": [
+    {
+      "id": "2fec",
+      "title": "Мандарин",
+      "completed": true
+    },
+    {
+      "title": "Апельсин",
+      "completed": false,
+      "id": "lkuPeuO"
+    },
+    {
+      "title": "Мультифрукт",
+      "completed": false,
+      "id": "Yp7Tlym"
+    },
+    {
+      "title": "Яблоко",
+      "completed": false,
+      "id": "x-kiEsS"
+    },
+    {
+      "title": "qwerty",
+      "completed": false,
+      "id": "3jitVlj"
+    }
+  ]
+}
