@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { HashLoader } from 'react-spinners';
 import { readTodos } from '../../api';
 import styles from './list.module.css';
-import { Task } from './components/task/task';
 
 export const List = ({ newTodo, isSorting, todos, setTodos, onCompletedChange }) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -29,13 +29,26 @@ export const List = ({ newTodo, isSorting, todos, setTodos, onCompletedChange })
 				<h2 className={styles.error}>{isError}</h2>
 			) : (
 				todos.map(({ id, title, completed }) => (
-					<Task
-						key={id}
-						id={id}
-						title={title}
-						completed={completed}
-						onCompletedChange={onCompletedChange}
-					/>
+					<div key={id} className={styles.task}>
+						<input
+							className={styles.checkbox}
+							type="checkbox"
+							checked={completed}
+							onChange={({ target }) =>
+								onCompletedChange(id, target.checked)
+							}
+						/>
+						<Link
+							to={`task/${id}`}
+							className={
+								completed
+									? styles.descriptionCompletedTask
+									: styles.description
+							}
+						>
+							{title}
+						</Link>
+					</div>
 				))
 			)}
 		</div>

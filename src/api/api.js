@@ -1,6 +1,6 @@
 import { HTTP_METHOD } from '../constants';
 
-const fetchServer = (method, { id, one, ...payload } = {}) => {
+const fetchServer = (method, { id, ...payload } = {}) => {
 	let url = `http://localhost:4000/todos`;
 	let options = {
 		method,
@@ -8,14 +8,14 @@ const fetchServer = (method, { id, one, ...payload } = {}) => {
 	};
 
 	if (method === HTTP_METHOD.GET) {
-		if (!one) {
+		if (id) {
+			url += `/${id}`;
+		} else {
 			const { searchPhrase, isAlphabetSorting } = payload;
 			const sortingParams = isAlphabetSorting
 				? '_sort=title&_order=asc'
 				: '_sort=id&_order=desc';
 			url += `?${sortingParams}&title_like=${searchPhrase}`;
-		} else {
-			url += `/${id}`;
 		}
 	} else {
 		if (method !== HTTP_METHOD.POST) {
@@ -40,13 +40,8 @@ export const createTodo = (newTodo) => fetchServer('POST', newTodo);
 export const readTodos = (searchPhrase = '', isAlphabetSorting = false) =>
 	fetchServer('GET', { searchPhrase, isAlphabetSorting });
 
-export const readTodo = (
-	todoId,
-	searchPhrase = '',
-	isAlphabetSorting = false,
-	one = true,
-) => fetchServer('GET', { id: todoId, one, searchPhrase, isAlphabetSorting });
+export const readTodo = (id) => fetchServer('GET', { id });
 
 export const updateTodo = (todoData) => fetchServer('PATCH', todoData);
 
-export const deleteTodo = (todoId) => fetchServer('DELETE', { id: todoId });
+export const deleteTodo = (id) => fetchServer('DELETE', { id });

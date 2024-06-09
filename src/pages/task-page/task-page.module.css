@@ -25,7 +25,7 @@ form {
 .description {
 	border: none;
 	background-color: inherit;
-	border-bottom: 2px solid #646464;
+	border: 2px solid #646464;
 	flex: 1 auto;
 	font-size: 30px;
 	margin: 5px;
@@ -45,7 +45,7 @@ form {
 
 .description:focus {
 	outline: none;
-	border-bottom: 2px solid #d12424;
+	border: 2px solid #d12424;
 }
 
 .descriptionCompletedTask:focus {
@@ -80,7 +80,7 @@ form {
 	background-color: inherit;
 }
 
-textarea {
+/* textarea {
 	box-sizing: border-box;
 	outline: none;
 	width: 100%;
@@ -101,4 +101,17 @@ textarea {
 }
 textarea.auto {
 	overflow-y: hidden;
+} */
+
+textarea {
+	box-sizing: border-box;
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	resize: none;
+	width: 100%;
+	height: 300px;
+	padding: 5px;
+	font-family: 'Caveat', cursive;
+	color: #404660;
 }

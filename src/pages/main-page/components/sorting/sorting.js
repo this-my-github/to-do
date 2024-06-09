@@ -1,5 +1,5 @@
 import sortIcon from '../../../../assets/image/sort.png';
-import { Button } from '../../../button/button';
+import { Button } from '../../../../components';
 import styles from './sorting.module.css';
 
 export const Sorting = ({ isSorting, setIsSorting }) => {
