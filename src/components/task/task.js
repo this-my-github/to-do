@@ -1,23 +1,44 @@
-import { useState } from 'react';
 import { Button } from '../button/button';
+import { deleteTodo, updateTodo } from '../../api';
+import { useStateManager } from '../../state-manager';
 import styles from './task.module.css';
 
-export const Task = ({
-	title,
-	completed,
-	onRemove,
-	onTitleChange,
-	onCompletedChange,
-}) => {
-	const [isEditing, setIsEditing] = useState(false);
-	const [updatedTodo, setUpdatedTodo] = useState(title);
+export const Task = ({ id, title, completed }) => {
+	const {
+		state: {
+			editingTodo: { id: editingTodoId, title: editingTodoTitle },
+		},
+		updateState,
+	} = useStateManager();
+
+	const isEditing = id === editingTodoId;
+
+	const onTitleChange = ({ target }) => {
+		updateState({ editingTodo: { title: target.value } });
+	};
+
+	const onCompletedChange = ({ target: { checked } }) => {
+		updateTodo({ id, completed: checked }).then(() => {
+			updateState({ todos: [{ id, completed: checked }] });
+		});
+	};
 
 	const onUpdate = (event) => {
 		event.preventDefault();
-		setIsEditing(!isEditing);
-		if (isEditing === true) {
-			onTitleChange(updatedTodo);
+		if (isEditing) {
+			updateTodo({ id, title }).then(() => {
+				updateState({
+					todos: [{ id, title: editingTodoTitle }],
+					editingTodo: { id: null },
+				});
+			});
+		} else {
+			updateState({ editingTodo: { id, title } });
 		}
+	};
+
+	const onRemove = () => {
+		deleteTodo(id).then(() => updateState({ todos: [{ id }] }));
 	};
 
 	const isUpdateBtnActive = isEditing ? styles.updateBtnActive : styles.updateBtn;
@@ -28,15 +49,15 @@ export const Task = ({
 				className={styles.checkbox}
 				type="checkbox"
 				checked={completed}
-				onChange={({ target }) => onCompletedChange(target.checked)}
+				onChange={onCompletedChange}
 			/>
 			<form>
 				<input
 					className={
 						completed ? styles.descriptionCompletedTask : styles.description
 					}
-					value={updatedTodo}
-					onChange={({ target }) => setUpdatedTodo(target.value)}
+					value={isEditing ? editingTodoTitle : title}
+					onChange={onTitleChange}
 					disabled={!isEditing}
 				/>
 				<Button style={isUpdateBtnActive} onClick={onUpdate} type="submit">

@@ -1,18 +1,32 @@
-import { useState, useContext } from 'react';
 import { Search, Sorting } from './components';
 import { Button } from '../button/button';
+import { useStateManager } from '../../state-manager';
+import { createTodo } from '../../api';
 import styles from './main-input.module.css';
-import { NewTodoContext } from '../../context';
 
-export const MainInput = ({ onTodoAdd }) => {
-	const [value, setValue] = useState('');
-	const { newTodo, setNewTodo } = useContext(NewTodoContext);
+export const MainInput = () => {
+	const {
+		state: {
+			options: { newTodo },
+		},
+		updateState,
+	} = useStateManager();
+
+	const onTodoAdd = (title) => {
+		createTodo({ title, completed: false }).then((todo) =>
+			updateState({
+				options: {
+					searchInput: '',
+					newTodo: '',
+				},
+				todos: [{ title }],
+			}),
+		);
+	};
 
 	const onTodoAddOnForm = (event) => {
 		event.preventDefault();
 		if (newTodo) {
-			setNewTodo('');
-			setValue('');
 			onTodoAdd(newTodo);
 		}
 	};
@@ -20,7 +34,7 @@ export const MainInput = ({ onTodoAdd }) => {
 	return (
 		<div className={styles.seachContainer}>
 			<form>
-				<Search value={value} setValue={setValue} />
+				<Search />
 				<Button type="submit" onClick={onTodoAddOnForm}>
 					✓
 				</Button>

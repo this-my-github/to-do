@@ -1,16 +1,36 @@
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import { debounce } from '../../../../utils';
+import { useStateManager } from '../../../../state-manager';
 import searchIcon from '../../../../assets/image/search.png';
 import styles from './search.module.css';
-import { NewTodoContext } from '../../../../context';
 
-export const Search = ({ value, setValue }) => {
-	const { setNewTodo } = useContext(NewTodoContext);
-	const debouncedOnSearch = useRef(debounce(setNewTodo, 1500)).current;
+export const Search = () => {
+	const {
+		state: {
+			options: { searchInput, isSorting },
+		},
+		updateState,
+	} = useStateManager();
+
+	const runSearch = (phrase, sorting) => {
+		updateState({
+			options: {
+				searchInput: phrase,
+				newTodo: phrase,
+				isSorting: sorting,
+			},
+		});
+	};
+
+	const debouncedRunSearch = useRef(debounce(runSearch, 1500)).current;
 
 	const onChange = ({ target }) => {
-		setValue(target.value);
-		debouncedOnSearch(target.value);
+		updateState({
+			options: {
+				searchInput: target.value,
+			},
+		});
+		debouncedRunSearch(target.value, isSorting);
 	};
 
 	return (
@@ -19,7 +39,7 @@ export const Search = ({ value, setValue }) => {
 			<input
 				className={styles.search}
 				placeholder="New todo"
-				value={value}
+				value={searchInput}
 				onChange={onChange}
 			/>
 		</>

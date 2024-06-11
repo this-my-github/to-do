@@ -1,12 +1,23 @@
+import { useStateManager } from '../../../../state-manager';
 import { Button } from '../../../button/button';
-import { useContext } from 'react';
-import { SortingContext } from '../../../../context';
 import sortIcon from '../../../../assets/image/sort.png';
 import styles from './sorting.module.css';
 
 export const Sorting = () => {
-	const { isSorting, setIsSorting } = useContext(SortingContext);
-	const onSorting = () => setIsSorting(!isSorting);
+	const {
+		state: {
+			options: { isSorting },
+		},
+		updateState,
+	} = useStateManager();
+
+	const onSorting = () => {
+		updateState({
+			options: {
+				isSorting: !isSorting,
+			},
+		});
+	};
 
 	return (
 		<Button onClick={onSorting}>
