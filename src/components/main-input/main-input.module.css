@@ -1,0 +1,23 @@
+.seachContainer {
+	margin: 10px;
+	display: flex;
+	align-items: center;
+}
+
+form {
+	display: flex;
+	flex: 1 auto;
+	justify-content: center;
+	align-items: center;
+}
+
+.sortIcon {
+	width: 25px;
+	height: 25px;
+	filter: invert(0.4);
+}
+
+.sortIconActive {
+	width: 25px;
+	height: 25px;
+}
