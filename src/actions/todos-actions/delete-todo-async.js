@@ -5,7 +5,7 @@ export const DELETE_TODO = (id) => ({
 	payload: id,
 });
 
-export const deleteInTodos = (id) => (dispatch) =>
+export const deleteTodoAsync = (id) => (dispatch) =>
 	deleteTodo(id).then(() => {
 		dispatch(DELETE_TODO(id));
 	});

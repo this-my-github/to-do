@@ -6,11 +6,11 @@ import { SET_SORTING } from '../../../../actions';
 import { selectIsSorting } from '../../../../selectors';
 
 export const Sorting = () => {
-	const optionsIsSorting = useSelector(selectIsSorting);
+	const isSorting = useSelector(selectIsSorting);
 	const dispatch = useDispatch();
 
 	const onSorting = () => {
-		dispatch(SET_SORTING(!optionsIsSorting));
+		dispatch(SET_SORTING(!isSorting));
 	};
 
 	return (
@@ -18,7 +18,7 @@ export const Sorting = () => {
 			<img
 				src={sortIcon}
 				alt="sortIcon"
-				className={optionsIsSorting ? styles.sortIconActive : styles.sortIcon}
+				className={isSorting ? styles.sortIconActive : styles.sortIcon}
 			/>
 		</Button>
 	);

@@ -1,32 +1,23 @@
 import { setTodoInTodos } from '../utils';
 
-export const initialTodosState = {
-	todos: [],
-};
+export const initialTodosState = [];
 
 export const todosReducer = (state = initialTodosState, action) => {
 	const { type, payload } = action;
 
 	switch (type) {
 		case 'SET_TODOS': {
-			return {
-				todos: [...payload],
-			};
+			return payload;
 		}
 
-		case 'UPDATE_TODOS': {
-			const newTodos = setTodoInTodos(state.todos, payload);
+		case 'UPDATE_TODO': {
+			const newTodos = setTodoInTodos(state, payload);
 
-			return {
-				todos: newTodos,
-			};
+			return [...newTodos];
 		}
 
 		case 'DELETE_TODO': {
-			const filteredTodos = state.todos.filter(({ id }) => id !== payload);
-			return {
-				todos: filteredTodos,
-			};
+			return state.filter(({ id }) => id !== payload);
 		}
 
 		default:

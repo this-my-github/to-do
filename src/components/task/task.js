@@ -1,12 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../button/button';
 import { selectEditingTodoId, selectEditingTodoTitle } from '../../selectors';
-import {
-	deleteInTodos,
-	updateTodosCompleted,
-	updateTodosTitle,
-	SET_EDITING_TODO,
-} from '../../actions';
+import { deleteTodoAsync, updateTodoAsync, SET_EDITING_TODO } from '../../actions';
 import styles from './task.module.css';
 
 export const Task = ({ id, title, completed }) => {
@@ -21,20 +16,22 @@ export const Task = ({ id, title, completed }) => {
 	};
 
 	const onCompletedChange = ({ target: { checked } }) => {
-		dispatch(updateTodosCompleted(id, checked));
+		dispatch(updateTodoAsync({ id, completed: checked }));
 	};
 
 	const onUpdate = (event) => {
 		event.preventDefault();
 		if (isEditing) {
-			dispatch(updateTodosTitle(id, editingTodoTitle));
+			dispatch(updateTodoAsync({ id, title: editingTodoTitle })).then(() => {
+				dispatch(SET_EDITING_TODO(null));
+			});
 		} else {
 			dispatch(SET_EDITING_TODO(id, title));
 		}
 	};
 
 	const onRemove = () => {
-		dispatch(deleteInTodos(id));
+		dispatch(deleteTodoAsync(id));
 	};
 
 	const isUpdateBtnActive = isEditing ? styles.updateBtnActive : styles.updateBtn;

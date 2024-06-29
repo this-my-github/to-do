@@ -18,10 +18,10 @@ export const optionsReducer = (state = initialOptionsState, action) => {
 			};
 		}
 
-		case 'SET_ALL_OPTIONS': {
+		case 'SET_NEW_TODO': {
 			return {
 				...state,
-				...payload,
+				newTodo: payload,
 			};
 		}
 

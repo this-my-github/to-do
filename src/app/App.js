@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HashLoader } from 'react-spinners';
 import { MainInput, Task } from '../components';
 import { selectTodos, selectOptions } from '../selectors';
-import { SET_ERROR, getTodos } from '../actions';
+import { SET_ERROR, readTodosAsync } from '../actions';
 import styles from './app.module.css';
 
 export const App = () => {
@@ -13,7 +13,7 @@ export const App = () => {
 
 	useEffect(() => {
 		dispatch(SET_ERROR(false));
-		dispatch(getTodos(newTodo, isSorting));
+		dispatch(readTodosAsync(newTodo, isSorting));
 	}, [newTodo, isSorting]);
 
 	return (
