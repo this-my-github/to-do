@@ -1,34 +1,19 @@
 {
   "todos": [
     {
-      "id": "1111",
-      "title": "Ананас",
-      "completed": false
+      "title": "Доделать Backend часть к приложению Блог",
+      "completed": true,
+      "id": "IUYZpkd"
     },
     {
-      "title": "banans Maaaan",
+      "title": "Начать делать приложение об учёте Расходов и доходов",
       "completed": false,
-      "id": "OGqXKGa"
+      "id": "OuZgWYk"
     },
     {
-      "title": "12345Async",
+      "title": "Почитать про Docker",
       "completed": false,
-      "id": "o_d-muw"
-    },
-    {
-      "title": "Василий",
-      "completed": false,
-      "id": "biYuSrX"
-    },
-    {
-      "title": "setTodos",
-      "completed": false,
-      "id": "4rn4EIk"
-    },
-    {
-      "title": "fd",
-      "completed": false,
-      "id": "dQtfxC2"
+      "id": "6uuI0-5"
     }
   ]
 }
